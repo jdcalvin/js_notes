@@ -1,11 +1,17 @@
+//===================================================================
+//JQUERY!!
+//===================================================================
 //descendant selector
-// $("#parent .child") Selects all children
+$("#parent .child") 
+//Selects all children
 
 //child selector
-//$("#parent > .child") Selects only direct child, not childrens children
+$("#parent > .child") 
+//Selects only direct child, not childrens children
 
 //psuedo class
-//$("#parent .child:first") -or- :last, :odd, :even
+$("#parent .child:first") 
+//-or- :last, :odd, :even
 
 //===================================================================
 //TRAVERSING THE DOM
@@ -119,5 +125,80 @@ $(documents).ready(function(){
 		//adding '+' converts to integer
 		var price = +$(this).closest('.vacation').data(price);
 		var quantity = +$(this).val();
+	});
+});
+//===================================================================
+//LINK LAYOVER
+//===================================================================
+//css
+.comments { display:none;}
+
+//js
+$(document).ready(function(){
+	$('#vacation').on('click', '.expand', 
+		function(event) {
+		//Find the comments ul
+		//Show it
+			event.PreventDefault(); 
+			//stops page from returning to the top upon clicking
+			$(this).closest('#vacation')
+			.find('.comments')
+			.fadeToggle();
+	});
+});
+//===================================================================
+//TAMING CSS
+//===================================================================
+//Changing our style
+$(document).ready(function(){
+	$('#vacations').on('click', '.vacation', function() {
+		$(this).css('background-color', '#252b30')
+			.css('border-color', 'black'); //Can chain events
+
+			//-OR-
+		$(this).css({'background-color':'black',
+									'border-color':'1px solid black'});
+
+		$(this).find('.price').css('display', 'block');
+		//Show, Hide
+		$(this).find('.price').show();
+	});
+});
+//Refactor to use stylesheets
+
+//css
+.highlighted {
+	background-color: 'black';
+}
+
+//js
+$(this).find('.price').addClass('highlighted');
+$(this).toggleClass('highlighted');
+//===================================================================
+//ANIMATION
+//===================================================================
+$(document).ready(function(){
+	$('#vacations').on('click','.vacation',function(){
+		$(this).toggleClass('highlighted');
+
+		//Requires if statement to remove class on a second click
+		if($(this).hasClass('highlighted')){
+			$(this).animate({'top':'-10px'}, 'fast');	
+		} else {
+			$(this).animate({'top':'-10px'}, 'fast'); 
+			//Speed toggle '400' is default. 'fast' == 200, 'slow' == 600
+		}
+
+		//OR utilize CSS transitions
+		// - take out total if statement and
+		//.css
+		.vacation { 
+			-moz-transition: top 0.2s; // required to support old browsers
+			-o-transition: top 0.2s; // required to support old browsers
+			-webkit-transition: top 0.2s; // required to support old browsers
+			transition: top: 0.2s; 
+		}
+		.highlighted { top: -10px;}
+		}
 	});
 });
